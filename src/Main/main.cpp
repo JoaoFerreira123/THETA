@@ -1,5 +1,20 @@
 #include <Arduino.h>
-#include <Wire.h>
+#include <TB6612FNG.h>
+
+//Defines MOTORES e inicialização
+#define STDBY 32
+
+//MOTOR A
+#define AIN1 18
+#define AIN2 16
+#define PWMA 17
+Tb6612fng motorA(STDBY, AIN1, AIN2, PWMA);
+
+#define BIN1 23
+#define BIN2 25
+#define PWMB 33
+Tb6612fng motorB(STDBY, BIN1, BIN2, PWMB);
+
 
 
 //Variaveis Encoder
@@ -9,7 +24,7 @@ unsigned long lastTime = 0;
 int encoderCount = 0;
 
 void setup() {
-  Serial.begin(19200);
+  Serial.begin(115200);
   pinMode(encoderPin, INPUT_PULLUP);
 }
 

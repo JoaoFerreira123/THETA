@@ -1,5 +1,4 @@
 #include <Arduino.h>
-#include <upload.h>
 #include <TB6612FNG.h>
 
 #define STDBY 32
@@ -18,8 +17,6 @@ Tb6612fng motorB(STDBY, BIN1, BIN2, PWMB);
 
 void setup() {
   Serial.begin(115200);
-  upload_OTA("Oi_A822","MchCM3TM");
-  upload_OTA("Oi_A822","MchCM3TM");
   motorA.begin();
   motorB.begin();
 }
