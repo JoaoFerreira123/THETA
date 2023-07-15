@@ -2,7 +2,7 @@
 #include <Arduino.h>
 
 // Define os pinos utilizados para a leitura do encoder
-const int encoderPin = 39;
+const int encoderPin = 34;
 
 // Variáveis globais
 unsigned long pulseWidth = 0;
