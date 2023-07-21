@@ -1,47 +1,68 @@
-// Inclua as bibliotecas necessárias
 #include <Arduino.h>
+/*
+Simultaneously Reading Two PWM Signals from an RC Receiver with Arduino
+ Brandon Tsuge
 
-// Define os pinos utilizados para a leitura do encoder
-const int encoderPin = 34;
+In this example, I demonstrate how to use Arduino to simultaneously read two RC (50Hz PWM) signals using external interrupts.
 
-// Variáveis globais
-unsigned long pulseWidth = 0;
-unsigned long lastTime = 0;
-int encoderCount = 0;
+ */
+//define the pins and variables
+#define RCPinFWD 5
+#define RCPinSide 18 
+
+volatile long StartTimeFWD = 0;
+volatile long CurrentTimeFWD = 0;
+volatile long PulsesFWD = 0;
+int PulseWidthFWD = 0;
+
+volatile long StartTimeSide = 0;
+volatile long CurrentTimeSide = 0;
+volatile long PulsesSide = 0;
+int PulseWidthSide = 0;
+
+
+void PulseTimerFWD(){
+  //measure the time between interrupts
+  CurrentTimeFWD = micros();
+  if (CurrentTimeFWD > StartTimeFWD){
+    PulsesFWD = CurrentTimeFWD - StartTimeFWD;
+    StartTimeFWD = CurrentTimeFWD;
+  }
+}
+
+void PulseTimerSide(){
+  //measure the time between interrupts
+  CurrentTimeSide = micros();
+  if (CurrentTimeSide > StartTimeSide){
+    PulsesSide = CurrentTimeSide - StartTimeSide;
+    StartTimeSide = CurrentTimeSide;
+  }
+}
+
 
 void setup() {
-  // Inicializa a comunicação serial
-  Serial.begin(19200);
-
-  // Define o pino do encoder como entrada
-  pinMode(encoderPin, INPUT_PULLUP);
+  //set up the serial monitor, pin mode, and external interrupt.
+  Serial.begin(115200);
+  pinMode(RCPinFWD, INPUT_PULLUP);
+  pinMode(RCPinSide, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(RCPinFWD),PulseTimerFWD,CHANGE);
+  attachInterrupt(digitalPinToInterrupt(RCPinSide),PulseTimerSide,CHANGE);
 }
 
 void loop() {
-  // Lê o pulso do encoder
-  pulseWidth = pulseIn(encoderPin, HIGH);
-
-  // Calcula a velocidade do encoder
-  unsigned long currentTime = micros();
-  unsigned long pulsePeriod = currentTime - lastTime;
-  lastTime = currentTime;
-  int encoderSpeed = 1000000 / pulsePeriod;
-
-  // Incrementa ou decrementa o contador do encoder com base na direção
-  if (pulseWidth > 1500) {
-    encoderCount++;
-  } else if (pulseWidth < 1500) {
-    encoderCount--;
-  }
-
-  // Exibe os resultados no Monitor Serial
-  //Serial.print("Pulso: ");
-  Serial.println(pulseWidth);
-  //Serial.print(", Velocidade: ");
-  //Serial.print(encoderSpeed);
-  //Serial.print(", Contagem: ");
-  //Serial.println(encoderCount);
-  
-  // Aguarda um breve intervalo antes da próxima leitura
-  delay(10);
+  //only save pulse lengths that are less than 2000 microseconds
+  if (PulsesFWD < 2000){
+    PulseWidthFWD = PulsesFWD;
+  } 
+  if (PulsesSide < 2000){
+    PulseWidthSide = PulsesSide;
+  } 
+  Serial.print("A: ");
+  Serial.print(PulseWidthFWD);
+  Serial.print("     ");
+  Serial.print("B: ");
+  Serial.println(PulseWidthSide);
+  delay(0);
 }
+
+
