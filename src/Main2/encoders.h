@@ -1,8 +1,8 @@
 #include <Arduino.h>
 
 //define the pins and variables
-#define encoderA 5
-#define encoderB 18 
+#define encoderA 36
+#define encoderB 39 
 
 volatile long StartTimeA = 0;
 volatile long CurrentTimeA = 0;
@@ -42,6 +42,7 @@ void getValueEncoderA(){
   } 
   Serial.print("A: ");
   Serial.println(PulseWidthA);
+  delay(250);
 }
 
 void getValueEncoderB(){
@@ -53,7 +54,7 @@ void getValueEncoderB(){
   } 
   Serial.print("B: ");
   Serial.println(PulseWidthB);
-
+    delay(250);
 }
 
 

@@ -5,7 +5,7 @@
 
 Adafruit_MPU6050 mpu;
 
-void setup(void) {
+void MPUstarted(){
   Serial.begin(115200);
   while (!Serial)
     delay(10); // will pause Zero, Leonardo, etc until serial console opens
@@ -33,9 +33,11 @@ void setup(void) {
   delay(100);
 }
 
-void loop() {
 
-  if(mpu.getMotionInterruptStatus()) {
+
+
+void getAngle(){
+    if(mpu.getMotionInterruptStatus()) {
     /* Get new sensor events with the readings */
     sensors_event_t a, g, temp;
     mpu.getEvent(&a, &g, &temp);
@@ -57,9 +59,8 @@ void loop() {
     Serial.print(g.gyro.y);
     Serial.print(",");
     Serial.print("GyroZ:");
-    Serial.print(g.gyro.z*(57.3));
+    Serial.print(g.gyro.z);
     Serial.println("");
   }
-
-  //delay(10);
 }
+
