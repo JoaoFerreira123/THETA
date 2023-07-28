@@ -10,6 +10,9 @@
 #include "Wire.h"
 #endif
 
+
+#define pi 3.14159265359
+
 MPU6050 mpu;
 
 // define output readings

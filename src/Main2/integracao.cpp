@@ -7,17 +7,15 @@
 
 void setup() {
   Serial.begin(115200);
-  //MPUstarted();
+  _imu_connect = imu_setup();
 }
 
 void loop() {
 
   getValueEncoderA();
   getValueEncoderB();
-  //getValueUltrassonic();
-  //getAngle(); //AINDA NÃO CONSEGUI EM ÂNGULO, SOMENTE RAD/S?? E QDO CONVERTO FICA ESTRANHO
-  //NÃO CONSEGUI TER UMA LEITURA DESCENTE!
   getValueUltrassonic(50); 
+  getMPUAngle();
   Serial.println();
 
 }
