@@ -12,11 +12,12 @@ void setup() {
 
 void loop() {
 
-  //getValueEncoderA();
-  //getValueEncoderB();
+  getValueEncoderA();
+  getValueEncoderB();
   //getValueUltrassonic();
   //getAngle(); //AINDA NÃO CONSEGUI EM ÂNGULO, SOMENTE RAD/S?? E QDO CONVERTO FICA ESTRANHO
   //NÃO CONSEGUI TER UMA LEITURA DESCENTE!
-  //getValueUltrassonic(100); OK, funciona. MAS USA PULSEIN -> Mudar código
+  getValueUltrassonic(50); 
+  Serial.println();
 
 }

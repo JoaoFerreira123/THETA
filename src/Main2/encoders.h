@@ -40,9 +40,9 @@ void getValueEncoderA(){
     if (PulsesA < 2000){
     PulseWidthA = PulsesA;
   } 
-  Serial.print("A: ");
-  Serial.println(PulseWidthA);
-  delay(250);
+  //Serial.print("A: ");
+  Serial.print("  A" + String(PulseWidthA) + "  ");
+  delay(50);
 }
 
 void getValueEncoderB(){
@@ -52,9 +52,8 @@ void getValueEncoderB(){
     if (PulsesB < 2000){
     PulseWidthB = PulsesB;
   } 
-  Serial.print("B: ");
-  Serial.println(PulseWidthB);
-    delay(250);
+  Serial.print("  B" + String(PulseWidthB) + "  ");
+  delay(50);
 }
 
 
