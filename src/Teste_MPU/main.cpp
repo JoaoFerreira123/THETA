@@ -1,65 +1,31 @@
 #include <Arduino.h>
-#include <Adafruit_MPU6050.h>
-#include <Adafruit_Sensor.h>
-#include <Wire.h>
+#include "mpu.h"
 
-Adafruit_MPU6050 mpu;
 
-void setup(void) {
+bool _imu_connect; 
+bool _connect = false;
+
+#define pi 3.14159265359
+
+
+
+void setup(){
+
   Serial.begin(115200);
-  while (!Serial)
-    delay(10); // will pause Zero, Leonardo, etc until serial console opens
 
-  Serial.println("Adafruit MPU6050 test!");
+  // check that the IMU initializes correctly
+  _imu_connect = imu_setup();
+}
 
-  // Try to initialize!
-  if (!mpu.begin()) {
-    Serial.println("Failed to find MPU6050 chip");
-    while (1) {
-      delay(10);
-    }
-  }
-  Serial.println("MPU6050 Found!");
 
-  //setupt motion detection
-  mpu.setHighPassFilter(MPU6050_HIGHPASS_0_63_HZ);
-  mpu.setMotionDetectionThreshold(1);
-  mpu.setMotionDetectionDuration(20);
-  mpu.setInterruptPinLatch(true);	// Keep it latched.  Will turn off when reinitialized.
-  mpu.setInterruptPinPolarity(true);
-  mpu.setMotionInterrupt(true);
+void loop(){
+
+  float* imu_ypr = imu_get_ypr();  
+  //retunr from + pi to -pi 
+  Serial.print("Orientation ");
+  //Print YAW angle, converted from RAD to dregrees
+  Serial.print(float(imu_ypr[0])*180/pi, 5);
 
   Serial.println("");
-  delay(100);
-}
-
-void loop() {
-
-  if(mpu.getMotionInterruptStatus()) {
-    /* Get new sensor events with the readings */
-    sensors_event_t a, g, temp;
-    mpu.getEvent(&a, &g, &temp);
-
-    /* Print out the values */
-    //Serial.print("AccelX:");
-    //Serial.print(a.acceleration.x);
-    //Serial.print(",");
-    ///Serial.print("AccelY:");
-    //Serial.print(a.acceleration.y);
-    //Serial.print(",");
-    //Serial.print("AccelZ:");
-    //Serial.print(a.acceleration.z);
-    //Serial.print(", ");
-    Serial.print("GyroX:");
-    Serial.print(g.gyro.x);
-    Serial.print(",");
-    Serial.print("GyroY:");
-    Serial.print(g.gyro.y);
-    Serial.print(",");
-    Serial.print("GyroZ:");
-    Serial.print(g.gyro.z*(57.3));
-    Serial.println("");
-  }
-
-  //delay(10);
-}
+  
+}   
