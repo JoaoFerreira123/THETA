@@ -1,37 +1,51 @@
 #include <Arduino.h>
 
 //Defines MOTORES e inicialização
-#define STDBY 18
 
-//MOTOR A
-#define AIN1 5
-#define AIN2 26
-#define PWMA 32
+// Motor A
 
-#define BIN1 23
-#define BIN2 25
-#define PWMB 33
+int PWMA = 32;
+int AIN1 = 5;
+int AIN2 = 26;
+
+// Motor B
+
+int PWMB = 33;
+int BIN1 = 23;
+int BIN2 = 25;
+
+
+
+   void definitions(){
+    pinMode(PWMA, OUTPUT);
+    pinMode(PWMB, OUTPUT);
+    pinMode(AIN1, OUTPUT);
+    pinMode(AIN2, OUTPUT);
+    pinMode(BIN1, OUTPUT);
+    pinMode(BIN2, OUTPUT);
+   }
 
 
 //PENSAR A NIVEL DO ROBO, NÃO A NIVEL DE CADA MOTOR! QUERO QUE O ROBO VA PRA FRENTE, NÃO SÓ TAL MOTOR.
 
 void frente(int vel, float time){
-    pinMode(AIN1, OUTPUT);
-    pinMode(AIN2, OUTPUT);
+
     digitalWrite(AIN1, HIGH);
     digitalWrite(AIN2, LOW);
+    digitalWrite(BIN1, HIGH);
+    digitalWrite(BIN2, LOW);
+
+    //Controla as duas velocidades
+    //implementar incremento de velocidade
+    analogWrite(PWMA, vel);
+    analogWrite(PWMB, vel);
 }
-//NAO FUNCIONOU! FAZER TESTES UNITÁRIOS, SEPARADO DO CÓDIGO PRINCIPAL!!!! 
 
+void tras(int vel, float time){
 
-//MUDAR TODO ESSE CODIGO! FAZER NA MÃO!!! NÃO USAR BIBLIOTECA PROS MOTORES, É UM PWM!!!!
-//fazer funcoes para
-//frente()
-//tras()
-//parado()
-//esquerda()
-//direita()
+}
 
-//todas com argumento de: qual motor, velocidade e tempo
-//https://dronebotworkshop.com/tb6612fng-h-bridge/
-//https://github.com/makersdigest/T06-TB6612FNG-Motor-Controller/blob/master/arduino/tb6612fng/tb6612fng.ino
+void direita(){
+    //vai ser q basicamente vai mudar o digitalWrite,
+    //uma roda p cada direção, e as velocidades
+}

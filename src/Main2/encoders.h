@@ -34,7 +34,7 @@ void PulseTimerB(){
 }
 
 
-void getValueEncoderA(){
+void getValueEncoderA(int print_delay){
   pinMode(encoderA, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(encoderA),PulseTimerA,CHANGE);
     if (PulsesA < 2000){
@@ -42,10 +42,10 @@ void getValueEncoderA(){
   } 
   //Serial.print("A: ");
   Serial.print("  A" + String(PulseWidthA) + "  ");
-  delay(50);
+  //delay(print_delay);
 }
 
-void getValueEncoderB(){
+void getValueEncoderB(int print_delay){
   pinMode(encoderB, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(encoderB),PulseTimerB,CHANGE);
   
@@ -53,7 +53,7 @@ void getValueEncoderB(){
     PulseWidthB = PulsesB;
   } 
   Serial.print("  B" + String(PulseWidthB) + "  ");
-  delay(50);
+  //delay(print_delay);
 }
 
 

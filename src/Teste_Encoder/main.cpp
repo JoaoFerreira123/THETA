@@ -7,8 +7,8 @@ In this example, I demonstrate how to use Arduino to simultaneously read two RC 
 
  */
 //define the pins and variables
-#define RCPinFWD 5
-#define RCPinSide 18 
+#define RCPinFWD 36
+#define RCPinSide 39
 
 volatile long StartTimeFWD = 0;
 volatile long CurrentTimeFWD = 0;
