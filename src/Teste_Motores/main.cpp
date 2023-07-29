@@ -45,7 +45,7 @@ void setup()
 }
 
 void loop() {
-  
+  //PRA FRENTE
   // Set Motor A forward
 
   digitalWrite(in1A, HIGH);
@@ -60,6 +60,27 @@ void loop() {
   // Set the motor speeds
   
   for(int i = 0; i<255; i+=5){
+    analogWrite(pwmA, i);
+    analogWrite(pwmB, i);
+    delay(100);
+  }
+
+
+  delay(1000);
+  //PRA TRÁS
+  // Set Motor A backward
+
+  digitalWrite(in1A, LOW);
+  digitalWrite(in2A, HIGH);
+
+ // Set Motor B backward
+
+  digitalWrite(in1B, LOW);
+  digitalWrite(in2B, HIGH);
+
+    // Set the motor speeds
+  
+  for(int i = 255; i>0; i-=5){
     analogWrite(pwmA, i);
     analogWrite(pwmB, i);
     delay(100);
