@@ -26,8 +26,8 @@ int in2B = 25;
 
 // Motor Speed Values - Start at zero
 
-int MotorSpeed1 = 255;
-int MotorSpeed2 = 255;
+int MotorSpeed1 = 0;
+int MotorSpeed2 = 0; 
 
 void setup()
 
@@ -59,7 +59,11 @@ void loop() {
     
   // Set the motor speeds
   
-  analogWrite(pwmA, MotorSpeed1);
-  analogWrite(pwmB, MotorSpeed2);
+  for(int i = 0; i<255; i+=5){
+    analogWrite(pwmA, i);
+    analogWrite(pwmB, i);
+    delay(100);
+  }
+
   
 }
