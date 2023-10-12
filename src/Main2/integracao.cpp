@@ -33,7 +33,7 @@ void loop() {
   //getValueUltrassonic(50); 
   //getMPUAngle();
   checkEncoders();
-  //frente(255);
+  frente(50);
   //stop();
 
 

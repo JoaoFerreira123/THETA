@@ -5,7 +5,7 @@
 // Motor A
 
 int PWMA = 33;
-int AIN1 = 14;
+int AIN1 = 5;
 int AIN2 = 27;
 
 // Motor B
