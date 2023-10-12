@@ -1,10 +1,12 @@
 #include <Arduino.h>
 #include "motores.h"
-#include "encoders.h"
 #include "ultrassonico.h"
 #include "mpu.h"
+#include "encoderKY040.h"
 
 int printing_delay = 10;
+
+unsigned long int timeON;
 
 void setup() {
   Serial.begin(115200);
@@ -15,16 +17,31 @@ void setup() {
   pinMode(AIN2, OUTPUT);
   pinMode(BIN1, OUTPUT);
   pinMode(BIN2, OUTPUT);
+
+  // The module already has pullup resistors on board
+  pinMode(PIN_A, INPUT);
+  pinMode(PIN_B, INPUT);
+
+
+// We need to monitor both pins, rising and falling for all states
+  attachInterrupt(digitalPinToInterrupt(PIN_A), rotary, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(PIN_B), rotary, CHANGE);
+
 }
 
 void loop() {
-
-  getValueEncoderA(printing_delay);
-  //getValueEncoderB(printing_delay);
   //getValueUltrassonic(50); 
   //getMPUAngle();
-  Serial.println();
-  frente(60, 10);
-  delay(50);
+  checkEncoders();
+  //frente(255);
+  //stop();
+
+
+
+
+  
+  //delay(1000);
+
+  //delay(50);
 
 }

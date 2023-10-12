@@ -4,15 +4,15 @@
 
 // Motor A
 
-int PWMA = 32;
-int AIN1 = 5;
-int AIN2 = 26;
+int PWMA = 33;
+int AIN1 = 14;
+int AIN2 = 27;
 
 // Motor B
 
-int PWMB = 33;
-int BIN1 = 23;
-int BIN2 = 25;
+int PWMB = 32;
+int BIN1 = 25;
+int BIN2 = 26;
 
 
 
@@ -28,7 +28,7 @@ int BIN2 = 25;
 
 //PENSAR A NIVEL DO ROBO, NÃO A NIVEL DE CADA MOTOR! QUERO QUE O ROBO VA PRA FRENTE, NÃO SÓ TAL MOTOR.
 
-void frente(int vel, float time){
+void frente(int vel){
 
     digitalWrite(AIN1, HIGH);
     digitalWrite(AIN2, LOW);
@@ -39,6 +39,7 @@ void frente(int vel, float time){
     //implementar incremento de velocidade
     analogWrite(PWMA, vel);
     analogWrite(PWMB, vel);
+    
 }
 
 void tras(int vel, float time){
@@ -48,4 +49,14 @@ void tras(int vel, float time){
 void direita(){
     //vai ser q basicamente vai mudar o digitalWrite,
     //uma roda p cada direção, e as velocidades
+}
+
+void stop(){
+    digitalWrite(AIN1, LOW);
+    digitalWrite(AIN2, LOW);
+    digitalWrite(BIN1, LOW);
+    digitalWrite(BIN2, LOW);
+
+    analogWrite(PWMA, 0);
+    analogWrite(PWMB, 0);
 }
