@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <WiFi.h>
 
 /*
   TB6612FNG H-Bridge Demo
@@ -12,15 +13,15 @@
 
 // Motor A
 
-int pwmA = 32;
-int in1A = 5;
-int in2A = 26;
+int pwmA = 4;
+int in1A = 12;
+int in2A = 13;
 
 // Motor B
 
-int pwmB = 33;
-int in1B = 23;
-int in2B = 25;
+int pwmB = 14;
+int in1B = 26;
+int in2B = 27;
 
 
 
@@ -66,7 +67,7 @@ void loop() {
   }
 
 
-  delay(1000);
+  //delay(1000);
   //PRA TRÁS
   // Set Motor A backward
 
@@ -86,5 +87,5 @@ void loop() {
     delay(100);
   }
 
-  
+
 }

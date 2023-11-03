@@ -24,7 +24,7 @@ bool blink = true;
 void upload_OTA(const char* ssid,const char* password) {
   pinMode(2,OUTPUT);
   digitalWrite(2,HIGH);
-  Serial.begin(115200);
+  //Serial.begin(115200);
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
   Serial.println("");

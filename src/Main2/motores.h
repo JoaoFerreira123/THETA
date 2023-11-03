@@ -4,16 +4,15 @@
 
 // Motor A
 
-int PWMA = 33;
-int AIN1 = 5;
-int AIN2 = 27;
+int PWMA = 4; 
+int AIN1 = 12;
+int AIN2 = 13;
 
 // Motor B
 
-int PWMB = 32;
-int BIN1 = 25;
-int BIN2 = 26;
-
+int PWMB = 14; 
+int BIN1 = 26; 
+int BIN2 = 27;
 
 
    void definitions(){

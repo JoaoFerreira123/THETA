@@ -7,7 +7,7 @@
 
 
 //X SHUT PINS 
-//Tem que ser PINOS ADC! 
+
 #define SDIST_1 32
 #define SDIST_2 33
 #define SDIST_3 25
