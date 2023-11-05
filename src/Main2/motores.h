@@ -10,9 +10,10 @@ int AIN2 = 13;
 
 // Motor B
 
-int PWMB = 14; 
-int BIN1 = 26; 
+int PWMB = 26; 
+int BIN1 = 14; 
 int BIN2 = 27;
+
 
 
    void definitions(){
