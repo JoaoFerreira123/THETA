@@ -1,8 +1,8 @@
 #include <Arduino.h>
 
 // Rotary encoder pins
-#define PIN_A 35
-#define PIN_B 34
+#define PIN_A 36
+#define PIN_B 39
 
 // A turn counter for the rotary encoder (negative = anti-clockwise)
 int rotationCounter = 200;

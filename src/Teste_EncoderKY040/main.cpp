@@ -7,7 +7,7 @@
 // A turn counter for the rotary encoder (negative = anti-clockwise)
 int rotationCounter = 200;
 
-// Flag from interrupt routine (moved=true)
+// Flag from interrupt routine (moved=true)r
 volatile bool rotaryEncoder = false;
 
 // Interrupt routine just sets a flag when rotation is detected

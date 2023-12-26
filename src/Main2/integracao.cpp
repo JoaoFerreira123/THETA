@@ -5,6 +5,7 @@
 #include "encoderKY040.h"
 #include "VL53.h"
 #include "upload.h"
+#include "led.h"
 
 int printing_delay = 10;
 
@@ -34,13 +35,16 @@ void setup() {
   attachInterrupt(digitalPinToInterrupt(PIN_B), rotary, CHANGE);
 
   sensores.sensorsInit();
+
+  pixels.begin();
 }
 
 void loop() {
   getValueUltrassonic(0); 
   getMPUAngle();
   //checkEncoders();
-  frente(50);
+  //Serial.println();
+  //frente(50);
   //stop();
   sensores.distanceRead();
   Serial.print(sensores.dist[0]);
@@ -49,6 +53,8 @@ void loop() {
   Serial.print(" ");
   Serial.print(sensores.dist[2]);
   Serial.println(" ");
+
+  leds(1, 50);
 
 
 
