@@ -57,10 +57,15 @@ void VL53_sensors::sensorsInit() {
 
 void VL53_sensors::distanceRead() {
 
+    dist[0] = sensor[0].readRangeSingleMillimeters();
+    dist[1] = sensor[1].readRangeSingleMillimeters();
+    dist[2] = sensor[2].readRangeSingleMillimeters();
+    /*
     for (uint8_t i = 0; i < number_sensor; i++){
        dist[i] = sensor[i].readRangeSingleMillimeters();
      
     }
+    */
      
    
 }

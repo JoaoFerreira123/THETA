@@ -6,18 +6,19 @@
 
 Adafruit_NeoPixel pixels(NUMPIXELS, LED_PIN, NEO_GRB + NEO_KHZ800); 
 
-void leds(int state, int brightness){
+void leds(int brightness){
     pixels.setBrightness(brightness);
-    if(state == 0){
-        pixels.clear();
-    }
-    if(state == 1){
+    pixels.fill(pixels.Color(119, 0, 200), 1, 60);
+    pixels.show();
+
+    /*
         for(int i=0; i<NUMPIXELS; i++) {
-            pixels.setPixelColor(i, pixels.Color(119, 0, 200));
-            pixels.show();
-            //delay(10);
-        }
+        pixels.setPixelColor(i, pixels.Color(119, 0, 200));
+        pixels.show();
     }
+    */
+
+
 }
 
 

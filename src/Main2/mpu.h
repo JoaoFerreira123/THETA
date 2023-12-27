@@ -264,11 +264,11 @@ float* angular_velocity_covariance() {
 
 }
 
-void getMPUAngle(){
+float getMPUAngle(){
   
   float* imu_ypr = imu_get_ypr();  
   //retunr from + pi to -pi 
   //Print YAW angle, converted from RAD to dregrees
-  Serial.print("  M" + String(float(imu_ypr[0])*180/pi, 2) + "  ");
-
+  //Serial.print("  M" + String(float(imu_ypr[0])*180/pi, 2) + "  ");
+  return((imu_ypr[0])*180/pi);
 }

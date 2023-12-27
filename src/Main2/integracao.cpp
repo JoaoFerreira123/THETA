@@ -2,12 +2,11 @@
 #include "motores.h"
 #include "ultrassonico.h"
 #include "mpu.h"
-#include "encoderKY040.h"
+//#include "encoderKY040.h"
 #include "VL53.h"
 #include "upload.h"
 #include "led.h"
-
-int printing_delay = 10;
+#include "encoder.h"
 
 unsigned long int timeON;
 
@@ -25,27 +24,27 @@ void setup() {
   pinMode(BIN2, OUTPUT);
   
 
-  // The module already has pullup resistors on board
-  pinMode(PIN_A, INPUT);
-  pinMode(PIN_B, INPUT);
-
-
-// We need to monitor both pins, rising and falling for all states
-  attachInterrupt(digitalPinToInterrupt(PIN_A), rotary, CHANGE);
-  attachInterrupt(digitalPinToInterrupt(PIN_B), rotary, CHANGE);
-
   sensores.sensorsInit();
 
   pixels.begin();
+  
+  pinMode(PinDT, INPUT);
+  pinMode(PinCLK, INPUT);
+  PreviousCLK=digitalRead(PinCLK);
+  PreviousDATA=digitalRead(PinDT);
 }
 
 void loop() {
-  getValueUltrassonic(0); 
-  getMPUAngle();
-  //checkEncoders();
-  //Serial.println();
+  Serial.print("U" + String(getValueUltrassonic(0)) + " ");
+
+  Serial.print("M" + String(getMPUAngle()) + " ");
+
+  Serial.print("EA" + String(encoder1()) + " ");
+
   //frente(50);
   //stop();
+   
+   
   sensores.distanceRead();
   Serial.print(sensores.dist[0]);
   Serial.print(" ");
@@ -53,16 +52,23 @@ void loop() {
   Serial.print(" ");
   Serial.print(sensores.dist[2]);
   Serial.println(" ");
-
-  leds(1, 50);
-
-
-
-
+  
 
   
-  //delay(1000);
 
-  //delay(50);
+  leds(20);
+
+
+  //ENCODER COM ULT + MPU + MOTOR OK, SEM DELAY, MAS JUNTO COM OS VL's NÃO FUNCIONA DIREITO
+  //Parece que os VLs atrasam a leitura dos outros sensores e o encoder não consegue atualizar
+
+
+
+
 
 }
+
+
+
+
+

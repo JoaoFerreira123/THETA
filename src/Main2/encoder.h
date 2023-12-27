@@ -1,6 +1,5 @@
 #include <Arduino.h>
 
-
 // Rotary Encoder Module connections
 const int PinDT=36;    // DATA signal
 const int PinCLK=39;    // CLOCK signal
@@ -15,67 +14,55 @@ int PreviousDATA;
 
 int displaycounter=0; // Store current counter value
 
-
-void setup()
-{
-  Serial.begin(115200);
-  pinMode(PinDT, INPUT);
-  pinMode(PinCLK, INPUT);
-  PreviousCLK=digitalRead(PinCLK);
-  PreviousDATA=digitalRead(PinDT);
-
-
-}
-
 // Check if Rotary Encoder was moved
 void check_rotary() {
 
  if ((PreviousCLK == 0) && (PreviousDATA == 1)) {
     if ((digitalRead(PinCLK) == 1) && (digitalRead(PinDT) == 0)) {
       displaycounter++;
-      Serial.println(displaycounter);
+      //Serial.println(displaycounter);
     }
     if ((digitalRead(PinCLK) == 1) && (digitalRead(PinDT) == 1)) {
       displaycounter--;
-      Serial.println(displaycounter);
+      //Serial.println(displaycounter);
     }
   }
 
 if ((PreviousCLK == 1) && (PreviousDATA == 0)) {
     if ((digitalRead(PinCLK) == 0) && (digitalRead(PinDT) == 1)) {
       displaycounter++;
-      Serial.println(displaycounter);
+      //Serial.println(displaycounter);
     }
     if ((digitalRead(PinCLK) == 0) && (digitalRead(PinDT) == 0)) {
       displaycounter--;
-      Serial.println(displaycounter);
+      //Serial.println(displaycounter);
     }
   }
 
 if ((PreviousCLK == 1) && (PreviousDATA == 1)) {
     if ((digitalRead(PinCLK) == 0) && (digitalRead(PinDT) == 1)) {
       displaycounter++;
-      Serial.println(displaycounter);
+      //Serial.println(displaycounter);
     }
     if ((digitalRead(PinCLK) == 0) && (digitalRead(PinDT) == 0)) {
       displaycounter--;
-      Serial.println(displaycounter);
+      //Serial.println(displaycounter);
     }
   }  
 
 if ((PreviousCLK == 0) && (PreviousDATA == 0)) {
     if ((digitalRead(PinCLK) == 1) && (digitalRead(PinDT) == 0)) {
       displaycounter++;
-      Serial.println(displaycounter);
+      //Serial.println(displaycounter);
     }
     if ((digitalRead(PinCLK) == 1) && (digitalRead(PinDT) == 1)) {
       displaycounter--;
-      Serial.println(displaycounter);
+      //Serial.println(displaycounter);
     }
   }            
  }
 
-void encoder1(){
+int encoder1(){
    // If enough time has passed check the rotary encoder
   if ((millis() - TimeOfLastDebounce) > DelayofDebounce) {
     
@@ -86,12 +73,5 @@ void encoder1(){
     
     TimeOfLastDebounce=millis();  // Set variable to current millis() timer
   }
+  return(displaycounter);
 }
-
-
-
-void loop() {
-   encoder1();
-}
-
-

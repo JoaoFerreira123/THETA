@@ -9,8 +9,9 @@
 
 NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE); 
 
-void getValueUltrassonic(int time_delay){
+int getValueUltrassonic(int time_delay){
     unsigned int distance = sonar.ping_cm();
-   Serial.print("  U" + String(distance) + "  ");
+   //Serial.print("  U" + String(distance) + "  ");
    delay(time_delay);
+   return(distance);
 }
