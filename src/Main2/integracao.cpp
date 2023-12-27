@@ -2,20 +2,19 @@
 #include "motores.h"
 #include "ultrassonico.h"
 #include "mpu.h"
-//#include "encoderKY040.h"
 #include "VL53.h"
 #include "upload.h"
 #include "led.h"
 #include "encoder.h"
 
-unsigned long int timeON;
-
 VL53_sensors sensores;
 
 void setup() {
   Serial.begin(115200);
-  upload_OTA("Oi_A822", "MchCM3TM");
-  _imu_connect = imu_setup();
+  upload_OTA("Oi_A822", "MchCM3TM"); // Wifi Credentials
+  _imu_connect = imu_setup(); //Init MPU
+
+  //Definitions Motors Pins
   pinMode(PWMA, OUTPUT);
   pinMode(PWMB, OUTPUT);
   pinMode(AIN1, OUTPUT);
@@ -24,14 +23,21 @@ void setup() {
   pinMode(BIN2, OUTPUT);
   
 
-  sensores.sensorsInit();
+  sensores.sensorsInit(); //Init VL's
 
-  pixels.begin();
+  pixels.begin(); //Init LEDs
   
-  pinMode(PinDT, INPUT);
-  pinMode(PinCLK, INPUT);
-  PreviousCLK=digitalRead(PinCLK);
-  PreviousDATA=digitalRead(PinDT);
+  //Definitions Encoders A and B
+  pinMode(PinDT_A, INPUT);
+  pinMode(PinCLK_A, INPUT);
+  PreviousCLK_A=digitalRead(PinCLK_A);
+  PreviousDATA_A=digitalRead(PinDT_A);
+
+  pinMode(PinDT_B, INPUT);
+  pinMode(PinCLK_B, INPUT);
+  PreviousCLK_B=digitalRead(PinCLK_B);
+  PreviousDATA_B=digitalRead(PinDT_B);
+
 }
 
 void loop() {
@@ -39,12 +45,15 @@ void loop() {
 
   Serial.print("M" + String(getMPUAngle()) + " ");
 
-  Serial.print("EA" + String(encoder1()) + " ");
+  Serial.print("EA" + String(encoderA()) + " ");
+
+  Serial.print("EB" + String(encoderB()) + " ");
+  Serial.println();
 
   //frente(50);
   //stop();
    
-   
+  /*
   sensores.distanceRead();
   Serial.print(sensores.dist[0]);
   Serial.print(" ");
@@ -52,6 +61,8 @@ void loop() {
   Serial.print(" ");
   Serial.print(sensores.dist[2]);
   Serial.println(" ");
+  */ 
+
   
 
   

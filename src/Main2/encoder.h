@@ -1,77 +1,159 @@
 #include <Arduino.h>
 
-// Rotary Encoder Module connections
-const int PinDT=36;    // DATA signal
-const int PinCLK=39;    // CLOCK signal
+// -------------Encoder A pins -----------
+const int PinDT_A=36;    // DATA signal
+const int PinCLK_A=39;    // CLOCK signal
 
-// Variables to debounce Rotary Encoder
-long TimeOfLastDebounce = 0;
-int DelayofDebounce = 0.01;
+// Variables to debounce Rotary EncoderA
+long TimeOfLastDebounce_A = 0;
+int DelayofDebounce_A = 0.01;
 
 // Store previous Pins state
-int PreviousCLK;   
-int PreviousDATA;
+int PreviousCLK_A;   
+int PreviousDATA_A;
 
-int displaycounter=0; // Store current counter value
+int displaycounter_A=0; // Store current counter value
+
+
+
+// ----------- Encoder B Pins ----------------
+const int PinDT_B=34;    // DATA signal
+const int PinCLK_B=35;    // CLOCK signal
+
+// Variables to debounce Rotary Encoder
+long TimeOfLastDebounce_B = 0;
+int DelayofDebounce_B = 0.01;
+
+// Store previous Pins state
+int PreviousCLK_B;   
+int PreviousDATA_B;
+
+int displaycounter_B=0; // Store current counter value
+
+
+
 
 // Check if Rotary Encoder was moved
-void check_rotary() {
+void check_rotaryA() {
 
- if ((PreviousCLK == 0) && (PreviousDATA == 1)) {
-    if ((digitalRead(PinCLK) == 1) && (digitalRead(PinDT) == 0)) {
-      displaycounter++;
+ if ((PreviousCLK_A == 0) && (PreviousDATA_A == 1)) {
+    if ((digitalRead(PinCLK_A) == 1) && (digitalRead(PinDT_A) == 0)) {
+      displaycounter_A++;
       //Serial.println(displaycounter);
     }
-    if ((digitalRead(PinCLK) == 1) && (digitalRead(PinDT) == 1)) {
-      displaycounter--;
+    if ((digitalRead(PinCLK_A) == 1) && (digitalRead(PinDT_A) == 1)) {
+      displaycounter_A--;
       //Serial.println(displaycounter);
     }
   }
 
-if ((PreviousCLK == 1) && (PreviousDATA == 0)) {
-    if ((digitalRead(PinCLK) == 0) && (digitalRead(PinDT) == 1)) {
-      displaycounter++;
+if ((PreviousCLK_A == 1) && (PreviousDATA_A == 0)) {
+    if ((digitalRead(PinCLK_A) == 0) && (digitalRead(PinDT_A) == 1)) {
+      displaycounter_A++;
       //Serial.println(displaycounter);
     }
-    if ((digitalRead(PinCLK) == 0) && (digitalRead(PinDT) == 0)) {
-      displaycounter--;
+    if ((digitalRead(PinCLK_A) == 0) && (digitalRead(PinDT_A) == 0)) {
+      displaycounter_A--;
       //Serial.println(displaycounter);
     }
   }
 
-if ((PreviousCLK == 1) && (PreviousDATA == 1)) {
-    if ((digitalRead(PinCLK) == 0) && (digitalRead(PinDT) == 1)) {
-      displaycounter++;
+if ((PreviousCLK_A == 1) && (PreviousDATA_A == 1)) {
+    if ((digitalRead(PinCLK_A) == 0) && (digitalRead(PinDT_A) == 1)) {
+      displaycounter_A++;
       //Serial.println(displaycounter);
     }
-    if ((digitalRead(PinCLK) == 0) && (digitalRead(PinDT) == 0)) {
-      displaycounter--;
-      //Serial.println(displaycounter);
+    if ((digitalRead(PinCLK_A) == 0) && (digitalRead(PinDT_A) == 0)) {
+      displaycounter_A--;
+      //Serial.println(displaycounter_A);
     }
   }  
 
-if ((PreviousCLK == 0) && (PreviousDATA == 0)) {
-    if ((digitalRead(PinCLK) == 1) && (digitalRead(PinDT) == 0)) {
-      displaycounter++;
-      //Serial.println(displaycounter);
+if ((PreviousCLK_A == 0) && (PreviousDATA_A == 0)) {
+    if ((digitalRead(PinCLK_A) == 1) && (digitalRead(PinDT_A) == 0)) {
+      displaycounter_A++;
+      //Serial.println(displaycounter_A);
     }
-    if ((digitalRead(PinCLK) == 1) && (digitalRead(PinDT) == 1)) {
-      displaycounter--;
-      //Serial.println(displaycounter);
+    if ((digitalRead(PinCLK_A) == 1) && (digitalRead(PinDT_A) == 1)) {
+      displaycounter_A--;
+      //Serial.println(displaycounter_A);
     }
   }            
  }
 
-int encoder1(){
+int encoderA(){
    // If enough time has passed check the rotary encoder
-  if ((millis() - TimeOfLastDebounce) > DelayofDebounce) {
+  if ((millis() - TimeOfLastDebounce_A) > DelayofDebounce_A) {
     
-    check_rotary();  // Rotary Encoder check routine below
+    check_rotaryA();  // Rotary Encoder check routine below
     
-    PreviousCLK=digitalRead(PinCLK);
-    PreviousDATA=digitalRead(PinDT);
+    PreviousCLK_A=digitalRead(PinCLK_A);
+    PreviousDATA_A=digitalRead(PinDT_A);
     
-    TimeOfLastDebounce=millis();  // Set variable to current millis() timer
+    TimeOfLastDebounce_A=millis();  // Set variable to current millis() timer
   }
-  return(displaycounter);
+  return(displaycounter_A);
+}
+
+
+// Check if Rotary Encoder B was moved
+void check_rotaryB() {
+
+ if ((PreviousCLK_B == 0) && (PreviousDATA_B == 1)) {
+    if ((digitalRead(PinCLK_B) == 1) && (digitalRead(PinDT_B) == 0)) {
+      displaycounter_B++;
+      //Serial.println(displaycounter);
+    }
+    if ((digitalRead(PinCLK_B) == 1) && (digitalRead(PinDT_B) == 1)) {
+      displaycounter_B--;
+      //Serial.println(displaycounter);
+    }
+  }
+
+if ((PreviousCLK_B == 1) && (PreviousDATA_B == 0)) {
+    if ((digitalRead(PinCLK_B) == 0) && (digitalRead(PinDT_B) == 1)) {
+      displaycounter_B++;
+      //Serial.println(displaycounter);
+    }
+    if ((digitalRead(PinCLK_B) == 0) && (digitalRead(PinDT_B) == 0)) {
+      displaycounter_B--;
+      //Serial.println(displaycounter);
+    }
+  }
+
+if ((PreviousCLK_B == 1) && (PreviousDATA_B == 1)) {
+    if ((digitalRead(PinCLK_B) == 0) && (digitalRead(PinDT_B) == 1)) {
+      displaycounter_B++;
+      //Serial.println(displaycounter);
+    }
+    if ((digitalRead(PinCLK_B) == 0) && (digitalRead(PinDT_B) == 0)) {
+      displaycounter_B--;
+      //Serial.println(displaycounter_B);
+    }
+  }  
+
+if ((PreviousCLK_B == 0) && (PreviousDATA_B == 0)) {
+    if ((digitalRead(PinCLK_B) == 1) && (digitalRead(PinDT_B) == 0)) {
+      displaycounter_B++;
+      //Serial.println(displaycounter_B);
+    }
+    if ((digitalRead(PinCLK_B) == 1) && (digitalRead(PinDT_B) == 1)) {
+      displaycounter_B--;
+      //Serial.println(displaycounter_B);
+    }
+  }            
+ }
+
+int encoderB(){
+   // If enough time has passed check the rotary encoder
+  if ((millis() - TimeOfLastDebounce_B) > DelayofDebounce_B) {
+    
+    check_rotaryB();  // Rotary Encoder check routine below
+    
+    PreviousCLK_B=digitalRead(PinCLK_B);
+    PreviousDATA_B=digitalRead(PinDT_B);
+    
+    TimeOfLastDebounce_B=millis();  // Set variable to current millis() timer
+  }
+  return(displaycounter_B);
 }
