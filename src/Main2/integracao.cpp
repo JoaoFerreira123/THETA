@@ -206,6 +206,10 @@ void PROCESS_BUTTON_RIGHT(){
 }
 
 void PROCESS_BUTTON_LEFT(){
+  digitalWrite(2, 1);
+  Serial.println("LEFT");
+  server.send(200, "text/plain", "");
+  esquerda(50);
 
 }
 

@@ -61,10 +61,10 @@
 const char PAGE_MAIN[] PROGMEM = R"=====(
 
 <!DOCTYPE html>
-<html lang="en" class="js-focus-visible">
+<html lang="pt-br" class="js-focus-visible">
 
 <title>THETA</title>
-
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <style>
     html {
       font-family: "Lucida Console", Courier, monospace;
@@ -129,50 +129,76 @@ const char PAGE_MAIN[] PROGMEM = R"=====(
         <h1> Theta </h1>
     </div>
 
-    <div class="manualController">
+
+    <div class="sensorContent">
         <div class="card">
-            <table align="center">
-                <tr>
-                    <td colspan="3" align="center">
-                        <button class="button" id="BTN_FRONT" onmousedown="BUTTON_PRESS_FRONT();" ontouchstart="BUTTON_PRESS_FRONT();" onmouseup="BUTTON_PRESS_STOP();" ontouchend="BUTTON_PRESS_STOP();">Forward</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">
-                        <button class="button" onmousedown="toggleCheckbox('left');" ontouchstart="toggleCheckbox('left');" onmouseup="toggleCheckbox('stop');" ontouchend="toggleCheckbox('stop');">Left</button>
-                    </td>
-                    <td align="center">
-                        <button class="button" onmousedown="BUTTON_PRESS_STOP();" ontouchstart="BUTTON_PRESS_STOP();">Stop</button>
-                    </td>
-                    <td align="center">
-                        <button class="button" onmousedown="BUTTON_PRESS_RIGHT();" ontouchstart="BUTTON_PRESS_RIGHT();" onmouseup="BUTTON_PRESS_STOP();" ontouchend="BUTTON_PRESS_STOP();">Right</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="3" align="center">
-                        <button class="button" onmousedown="BUTTON_PRESS_BACK();" ontouchstart="BUTTON_PRESS_BACK();" onmouseup="BUTTON_PRESS_STOP();" ontouchend="BUTTON_PRESS_STOP();">Backward</button>
-                    </td>
-                </tr>
-            </table>
+          <table align="center">
+          <tr>
+            <td colspan="3" align="center">
+              <div class="card">
+                <p class="card-title"> Distância Frente</p>
+                <p class="reading"><span id="humidity"></span> &percnt;</p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td align="center">
+              <div class="card">
+                <p class="card-title"> Distância Esquerda</p>
+                <p class="reading"><span id="humidity"></span> &percnt;</p>
+              </div>
+            </td>
+            <td align="center">
+              <img src="D:\Projetos\Theta\Programação Theta\THETA\data\logo.png" alt="Theta Logo">
+            </td>
+            <td align="center">
+              <div class="card">
+                <p class="card-title"> Distância Direita</p>
+                <p class="reading"><span id="humidity"></span> &percnt;</p>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" align="center">
+              <div class="card">
+                <p class="card-title"> Distância Atrás</p>
+                <p class="reading"><span id="humidity"></span> &percnt;</p>
+              </div>
+            </td>
+          </tr>
+          </table>
         </div>
     </div>
 
-    <div class="sensorContent">
-        <div class="card-grid">
-            <div class="card">
-                <p class="card-title"><i class="fas fa-thermometer-threequarters" style="color:#059e8a;"></i> Orientação</p>
-                <p class="reading"><span id="temperature"></span> &deg;C</p>
-            </div>
-            <div class="card">
-                <p class="card-title"> Distânicia A</p>
-                <p class="reading"><span id="humidity"></span> &percnt;</p>
-            </div>
-            <div class="card">
-                <p class="card-title"> Distância B</p>
-                <p class="reading"><span id="pressure"></span> hpa</p>
-            </div>
-        </div>
+    <div class="manualController">
+      <div class="card">
+        <table align="center">
+          <tr>
+            <td colspan="3" align="center">
+              <button class="button" id="BTN_FRONT" onmousedown="BUTTON_PRESS_FRONT();" ontouchstart="BUTTON_PRESS_FRONT();" onmouseup="BUTTON_PRESS_STOP();" ontouchend="BUTTON_PRESS_STOP();">Forward</button>
+            </td>
+          </tr>
+          <tr>
+            <td align="center">
+              <button class="button" onmousedown="BUTTON_PRESS_LEFT();" ontouchstart="BUTTON_PRESS_LEFT();" onmouseup="BUTTON_PRESS_STOP();" ontouchend="BUTTON_PRESS_STOP();">Left</button>
+            </td>
+            <td align="center">
+              <button class="button" onmousedown="BUTTON_PRESS_STOP();" ontouchstart="BUTTON_PRESS_STOP();">Stop</button>
+            </td>
+            <td align="center">
+              <button class="button" onmousedown="BUTTON_PRESS_RIGHT();" ontouchstart="BUTTON_PRESS_RIGHT();" onmouseup="BUTTON_PRESS_STOP();" ontouchend="BUTTON_PRESS_STOP();">Right</button>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3" align="center">
+              <button class="button" onmousedown="BUTTON_PRESS_BACK();" ontouchstart="BUTTON_PRESS_BACK();" onmouseup="BUTTON_PRESS_STOP();" ontouchend="BUTTON_PRESS_STOP();">Backward</button>
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
+
+
 
   </body>
 
@@ -283,6 +309,28 @@ const char PAGE_MAIN[] PROGMEM = R"=====(
       */
        
       xhttp.open("PUT", "BUTTON_RIGHT", false);
+      xhttp.send();
+    }
+
+    function BUTTON_PRESS_LEFT() {
+      var xhttp = new XMLHttpRequest(); 
+      var message;
+      // if you want to handle an immediate reply (like status from the ESP
+      // handling of the button press use this code
+      // since this button status from the ESP is in the main XML code
+      // we don't need this
+      // remember that if you want immediate processing feedbac you must send it
+      // in the ESP handling function and here
+      /*
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          message = this.responseText;
+          // update some HTML data
+        }
+      }
+      */
+       
+      xhttp.open("PUT", "BUTTON_LEFT", false);
       xhttp.send();
     }
 

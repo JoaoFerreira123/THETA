@@ -45,6 +45,21 @@ void tras(int vel){
 void direita(int vel){
     //vai ser q basicamente vai mudar o digitalWrite,
     //uma roda p cada direção, e as velocidades
+    digitalWrite(AIN1, HIGH);
+    digitalWrite(AIN2, LOW);
+    digitalWrite(BIN1, HIGH);
+    digitalWrite(BIN2, LOW);
+
+    //Controla as duas velocidades
+    //implementar incremento de velocidade
+    analogWrite(PWMA, vel);
+    analogWrite(PWMB, vel);
+    
+}
+
+void esquerda(int vel){
+    //vai ser q basicamente vai mudar o digitalWrite,
+    //uma roda p cada direção, e as velocidades
     digitalWrite(AIN1, LOW);
     digitalWrite(AIN2, HIGH);
     digitalWrite(BIN1, LOW);
@@ -54,7 +69,8 @@ void direita(int vel){
     //implementar incremento de velocidade
     analogWrite(PWMA, vel);
     analogWrite(PWMB, vel);
-    
+
+
 }
 
 void stop(){
