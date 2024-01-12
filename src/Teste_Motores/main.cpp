@@ -11,17 +11,19 @@
   https://dronebotworkshop.com
 */
 
+
 // Motor A
 
-int pwmA = 4;
-int in1A = 12;
-int in2A = 13;
+int PWMA = 4; 
+int AIN1 = 12;
+int AIN2 = 13;
 
 // Motor B
 
-int pwmB = 14;
-int in1B = 26;
-int in2B = 27;
+int PWMB = 26; 
+int BIN1 = 14; 
+int BIN2 = 27;
+
 
 
 
@@ -36,56 +38,65 @@ void setup()
 
   // Set all the motor control pins to outputs
 
-  pinMode(pwmA, OUTPUT);
-  pinMode(pwmB, OUTPUT);
-  pinMode(in1A, OUTPUT);
-  pinMode(in2A, OUTPUT);
-  pinMode(in1B, OUTPUT);
-  pinMode(in2B, OUTPUT);
+    pinMode(PWMA, OUTPUT);
+    pinMode(PWMB, OUTPUT);
+    pinMode(AIN1, OUTPUT);
+    pinMode(AIN2, OUTPUT);
+    pinMode(BIN1, OUTPUT);
+    pinMode(BIN2, OUTPUT);
    
 }
 
 void loop() {
   //PRA FRENTE
-  // Set Motor A forward
+  // Set Theta forward
 
-  digitalWrite(in1A, HIGH);
-  digitalWrite(in2A, LOW);
+  digitalWrite(AIN1, LOW);
+  digitalWrite(AIN2, HIGH);
 
- // Set Motor B forward
+  digitalWrite(BIN1, HIGH);
+  digitalWrite(BIN2, LOW);
 
-  digitalWrite(in1B, HIGH);
-  digitalWrite(in2B, LOW);
+  analogWrite(PWMA, 50);
+  analogWrite(PWMB, 50);
   
-    
-  // Set the motor speeds
-  
-  for(int i = 0; i<255; i+=5){
-    analogWrite(pwmA, i);
-    analogWrite(pwmB, i);
+  delay(2000);
+  /*
+    Set the motor speeds
+    for(int i = 0; i<255; i+=5){
+    analogWrite(PWMA, i);
+    analogWrite(PWMB, i);
     delay(100);
   }
+  */ 
+  
 
 
-  //delay(1000);
+
+
   //PRA TRÁS
-  // Set Motor A backward
+  // Set Motor Theta backward
 
-  digitalWrite(in1A, LOW);
-  digitalWrite(in2A, HIGH);
+  digitalWrite(AIN1, HIGH);
+  digitalWrite(AIN2, LOW);
 
- // Set Motor B backward
+  digitalWrite(BIN1, LOW);
+  digitalWrite(BIN2, HIGH);
 
-  digitalWrite(in1B, LOW);
-  digitalWrite(in2B, HIGH);
-
-    // Set the motor speeds
+  analogWrite(PWMA, 50);
+  analogWrite(PWMB, 50);
+  delay(2000);
   
-  for(int i = 255; i>0; i-=5){
-    analogWrite(pwmA, i);
-    analogWrite(pwmB, i);
+  /*
+    Set the motor speeds
+    for(int i = 255; i>0; i-=5){
+      analogWrite(PWMA, i);
+      analogWrite(PWMB, i);
     delay(100);
   }
+  */ 
+  
+
 
 
 }

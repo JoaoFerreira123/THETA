@@ -17,8 +17,8 @@ int displaycounter_A=0; // Store current counter value
 
 
 // ----------- Encoder B Pins ----------------
-const int PinDT_B=34;    // DATA signal
-const int PinCLK_B=35;    // CLOCK signal
+const int PinDT_B=35;    // DATA signal
+const int PinCLK_B=34;    // CLOCK signal
 
 // Variables to debounce Rotary Encoder
 long TimeOfLastDebounce_B = 0;

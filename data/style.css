@@ -1,0 +1,54 @@
+html {
+    font-family: "Lucida Console", Courier, monospace;
+    text-align: center;  /* centralizando os botões dentro do quadro */
+  }
+  h1 {
+    font-size: 1.8rem;  /*tamanho da fonte do cabeçalho "ESP WebSocket Server"**/
+    color: white;       /*cor da fonte do cabeçalho "ESP WebSocket Server" */
+  }
+  .topnav {
+    overflow: hidden;
+    background-color: #7700c8; /*cor da moldura da inscrição "ESP WebSocket Server"*/
+  }
+  body {
+    margin: 0;
+  }
+  .content {
+    padding: 30px;     /*distância entre o título e o frame*/
+    max-width: 600px;  /* largura da moldura*/
+    margin: 0 auto;
+  }
+  .card {
+    background-color: #F8F7F9; /* cor do quadro */
+    box-shadow: 2px 2px 12px 1px rgba(140,140,140,.5);
+    padding-top:10px;     /* recuo do primeiro botão até a borda superior do quadro */
+    padding-bottom:20px;  /* recuo do último botão até a borda inferior do quadro*/
+}
+  .button {
+    padding: 8px 23px;  /*altura e largura do botão*/
+    font-size: 24px;      /*tamanho da fonte do botão (o tamanho do botão se adapta ao tamanho da fonte)*/
+    text-align: center;   /*centralizando o rótulo dentro do botão*/
+    outline: none;
+    color: #fff;                /*cor da fonte no botão*/
+    background-color: #7700c8;   /*cor do botao*/
+    border: none;
+    border-radius: 5px;          /*raio dos cantos dos botões*/
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+   }
+  /*  button:hover {background-color: #6b0f8c} /* Cor de foco do botão */
+   .button:active {
+     background-color: #7700c8;
+     box-shadow: 2 2px #7700c8;
+     transform: translateY(2px);
+   }
+   .state {
+     font-size: 1.0rem; /* tamanho da fonte do status do botão */
+     color:#8c8c8c;    /* cor do botão ativo*/
+     font-weight: bold;
+   }

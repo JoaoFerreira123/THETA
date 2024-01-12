@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <title>Theta</title>
+</head>
+
+<body>
+    <div class="topnav">
+        <h1> Theta </h1>
+    </div>
+
+    <div class="manualController">
+        <div class="card">
+            <table align="center">
+                <tr>
+                    <td colspan="3" align="center">
+                        <button class="button" onmousedown="PROCESS_BUTTON_FRONT();" ontouchstart="PROCESS_BUTTON_FRONT();" onmouseup="PROCESS_BUTTON_STOP();" ontouchend="PROCESS_BUTTON_STOP();">Forward</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <button class="button" onmousedown="toggleCheckbox('left');" ontouchstart="toggleCheckbox('left');" onmouseup="toggleCheckbox('stop');" ontouchend="toggleCheckbox('stop');">Left</button>
+                    </td>
+                    <td align="center">
+                        <button class="button" onmousedown="PROCESS_BUTTON_STOP();" ontouchstart="PROCESS_BUTTON_STOP();">Stop</button>
+                    </td>
+                    <td align="center">
+                        <button class="button" onmousedown="toggleCheckbox('right');" ontouchstart="toggleCheckbox('right');" onmouseup="toggleCheckbox('stop');" ontouchend="toggleCheckbox('stop');">Right</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="center">
+                        <button class="button" onmousedown="toggleCheckbox('backward');" ontouchstart="toggleCheckbox('backward');" onmouseup="toggleCheckbox('stop');" ontouchend="toggleCheckbox('stop');">Backward</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="sensorContent">
+        <div class="card-grid">
+            <div class="card">
+                <p class="card-title"><i class="fas fa-thermometer-threequarters" style="color:#059e8a;"></i> Temperature</p>
+                <p class="reading"><span id="temperature"></span> &deg;C</p>
+            </div>
+            <div class="card">
+                <p class="card-title"> Humidity</p>
+                <p class="reading"><span id="humidity"></span> &percnt;</p>
+            </div>
+            <div class="card">
+                <p class="card-title"> Pressure</p>
+                <p class="reading"><span id="pressure"></span> hpa</p>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+
+</body>
+
+</html>
