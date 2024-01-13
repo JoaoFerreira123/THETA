@@ -137,7 +137,7 @@ const char PAGE_MAIN[] PROGMEM = R"=====(
             <td colspan="3" align="center">
               <div class="card">
                 <p class="card-title"> Distância Frente</p>
-                <p class="reading"><span id="humidity"></span> &percnt;</p>
+                <p class="reading"><span id="U"></span>cm</p>
               </div>
             </td>
           </tr>
@@ -145,11 +145,11 @@ const char PAGE_MAIN[] PROGMEM = R"=====(
             <td align="center">
               <div class="card">
                 <p class="card-title"> Distância Esquerda</p>
-                <p class="reading"><span id="humidity"></span> &percnt;</p>
+                <p class="reading"><span id="humidity"></span></p>
               </div>
             </td>
             <td align="center">
-              <img src="D:\Projetos\Theta\Programação Theta\THETA\data\logo.png" alt="Theta Logo">
+              <img src="D:/Projetos/Theta/Programação\Theta/THETA/data/logo.png" alt="Theta Logo">
             </td>
             <td align="center">
               <div class="card">
@@ -339,90 +339,20 @@ const char PAGE_MAIN[] PROGMEM = R"=====(
     // function to handle the response from the ESP
     function response(){
       var message;
-      var barwidth;
-      var currentsensor;
       var xmlResponse;
       var xmldoc;
-      var dt = new Date();
-      var color = "#e8e8e8";
+
      
       // get the xml stream
       xmlResponse=xmlHttp.responseXML;
   
   
-      // A0
-      xmldoc = xmlResponse.getElementsByTagName("B0"); //bits for A0
+      //Mostrar a leitura do ULTRASSÔNICO NO SITE
+      xmldoc = xmlResponse.getElementsByTagName("U"); //Ultrassonic
       message = xmldoc[0].firstChild.nodeValue;
-      
-      if (message > 2048){
-      color = "#aa0000";
-      }
-      else {
-        color = "#0000aa";
-      }
-      
-      barwidth = message / 40.95;
-      document.getElementById("b0").innerHTML=message;
-      document.getElementById("b0").style.width=(barwidth+"%");
-      // if you want to use global color set above in <style> section
-      // other wise uncomment and let the value dictate the color
-      //document.getElementById("b0").style.backgroundColor=color;
-      //document.getElementById("b0").style.borderRadius="5px";
-      
-      xmldoc = xmlResponse.getElementsByTagName("V0"); //volts for A0
-      message = xmldoc[0].firstChild.nodeValue;
-      document.getElementById("v0").innerHTML=message;
-      document.getElementById("v0").style.width=(barwidth+"%");
-      // you can set color dynamically, maybe blue below a value, red above
-      document.getElementById("v0").style.backgroundColor=color;
-      //document.getElementById("v0").style.borderRadius="5px";
-  
-      // A1
-      xmldoc = xmlResponse.getElementsByTagName("B1");
-      message = xmldoc[0].firstChild.nodeValue;
-      if (message > 2048){
-      color = "#aa0000";
-      }
-      else {
-        color = "#0000aa";
-      }
-      document.getElementById("b1").innerHTML=message;
-      width = message / 40.95;
-      document.getElementById("b1").style.width=(width+"%");
-      document.getElementById("b1").style.backgroundColor=color;
-      //document.getElementById("b1").style.borderRadius="5px";
-      
-      xmldoc = xmlResponse.getElementsByTagName("V1");
-      message = xmldoc[0].firstChild.nodeValue;
-      document.getElementById("v1").innerHTML=message;
-      document.getElementById("v1").style.width=(width+"%");
-      document.getElementById("v1").style.backgroundColor=color;
-      //document.getElementById("v1").style.borderRadius="5px";
-  
-      xmldoc = xmlResponse.getElementsByTagName("LED");
-      message = xmldoc[0].firstChild.nodeValue;
-  
-      if (message == 0){
-        document.getElementById("BTN_FRONT").innerHTML="Turn ON";
-      }
-      else{
-        document.getElementById("BTN_FRONT").innerHTML="Turn OFF";
-      }
-         
-      xmldoc = xmlResponse.getElementsByTagName("SWITCH");
-      message = xmldoc[0].firstChild.nodeValue;
-      document.getElementById("switch").style.backgroundColor="rgb(200,200,200)";
-      // update the text in the table
-      if (message == 0){
-        document.getElementById("switch").innerHTML="Switch is OFF";
-        document.getElementById("btn1").innerHTML="Turn ON";
-        document.getElementById("switch").style.color="#0000AA"; 
-      }
-      else {
-        document.getElementById("switch").innerHTML="Switch is ON";
-        document.getElementById("btn1").innerHTML="Turn OFF";
-        document.getElementById("switch").style.color="#00AA00";
-      }
+      document.getElementById("U").innerHTML=message;
+
+
      }
   
     // general processing code for the web page to ask for an XML steam

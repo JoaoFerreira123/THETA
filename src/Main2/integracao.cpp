@@ -2,8 +2,6 @@
 
 #include <WiFi.h>
 #include <WebServer.h>
-#include "webPage.h"
-
 #include "motores.h"
 #include "ultrassonico.h"
 #include "mpu.h"
@@ -11,6 +9,8 @@
 //#include "upload.h"
 #include "led.h"
 #include "encoder.h"
+#include "SPIFFS.h"
+
 
 VL53_sensors sensores;
 
@@ -48,11 +48,27 @@ void PROCESS_BUTTON_LEFT();
 void PROCESS_BUTTON_RIGHT();
 
 
-
+String SITE = "";
 
 void setup() {
   leds("fade", 50);
   Serial.begin(115200);
+
+  //Inicia SPIFFS e lê o HTML pra enviar o server
+  if(!SPIFFS.begin(true)){
+    Serial.println("An Error has occurred while mounting SPIFFS");
+    return;
+  }
+  
+  File file = SPIFFS.open("/index.html");
+  if(!file){
+    Serial.println("Failed to open file for reading");
+    return;
+  }
+  SITE = file.readString();
+
+
+
   _imu_connect = imu_setup(); //Init MPU
 
   //Definitions Motors Pins
@@ -177,21 +193,21 @@ void loop() {
 
 void PROCESS_BUTTON_STOP(){
   digitalWrite(2, 0);
-  Serial.println("STOP");
+  //Serial.println("STOP");
   server.send(200, "text/plain", "");
   stop();
 }
 
 void PROCESS_BUTTON_BACK(){
   digitalWrite(2, 1);
-  Serial.println("BACK");
+  //Serial.println("BACK");
   server.send(200, "text/plain", "");
   tras(50);
 }
 
 void PROCESS_BUTTON_FRONT(){
   digitalWrite(2, 1);
-  Serial.println("FRONT");
+  //Serial.println("FRONT");
   server.send(200, "text/plain", "");
   frente(50);
 
@@ -199,7 +215,7 @@ void PROCESS_BUTTON_FRONT(){
 
 void PROCESS_BUTTON_RIGHT(){
   digitalWrite(2, 1);
-  Serial.println("RIGHT");
+  //Serial.println("RIGHT");
   server.send(200, "text/plain", "");
   direita(50);
 
@@ -207,7 +223,7 @@ void PROCESS_BUTTON_RIGHT(){
 
 void PROCESS_BUTTON_LEFT(){
   digitalWrite(2, 1);
-  Serial.println("LEFT");
+  //Serial.println("LEFT");
   server.send(200, "text/plain", "");
   esquerda(50);
 
@@ -217,8 +233,7 @@ void PROCESS_BUTTON_LEFT(){
 void SendWebsite() {
   // you may have to play with this value, big pages need more porcessing time, and hence
   // a longer timeout that 200 ms
-  server.send(200, "text/html", PAGE_MAIN);
-
+  server.send(200, "text/html", SITE);
 }
 
 // code to send the main web page
@@ -232,8 +247,10 @@ void SendXML() {
   else {
     strcat(XML, "<LED>0</LED>\n");
   }
+  sprintf(buf, "<U>%d</U>\n", getValueUltrassonic(0));
+  strcat(XML, buf);
   strcat(XML, "</Data>\n");
-  //Serial.println(XML);
+  Serial.println(XML);
 
   server.send(200, "text/xml", XML);
 
