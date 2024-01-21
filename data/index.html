@@ -83,7 +83,7 @@
             <td align="center">
               <div class="card">
                 <p class="card-title"> Distância Esquerda</p>
-                <p class="reading"><span id="humidity"></span></p>
+                <p class="reading"><span id="VL1"></span>cm</p>
               </div>
             </td>
             <td align="center">
@@ -92,7 +92,7 @@
             <td align="center">
               <div class="card">
                 <p class="card-title"> Distância Direita</p>
-                <p class="reading"><span id="humidity"></span> &percnt;</p>
+                <p class="reading"><span id="VL2"></span> cm</p>
               </div>
             </td>
           </tr>
@@ -100,7 +100,7 @@
             <td colspan="3" align="center">
               <div class="card">
                 <p class="card-title"> Distância Atrás</p>
-                <p class="reading"><span id="humidity"></span> &percnt;</p>
+                <p class="reading"><span id="VL3"></span>cm</p>
               </div>
             </td>
           </tr>
@@ -286,6 +286,22 @@
       message = xmldoc[0].firstChild.nodeValue;
       document.getElementById("U").innerHTML=message;
 
+      //Mostrar a leitura dos VL's NO SITE
+      xmldoc = xmlResponse.getElementsByTagName("VL1"); 
+      message = xmldoc[0].firstChild.nodeValue;
+      document.getElementById("VL1").innerHTML=message;
+
+      
+      //Mostrar a leitura dos VL's NO SITE
+      xmldoc = xmlResponse.getElementsByTagName("VL2"); 
+      message = xmldoc[0].firstChild.nodeValue;
+      document.getElementById("VL2").innerHTML=message;
+
+      
+      //Mostrar a leitura dos VL's NO SITE
+      xmldoc = xmlResponse.getElementsByTagName("VL3"); 
+      message = xmldoc[0].firstChild.nodeValue;
+      document.getElementById("VL3").innerHTML=message;
 
      }
   

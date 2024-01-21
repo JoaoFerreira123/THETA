@@ -50,7 +50,15 @@ void PROCESS_BUTTON_RIGHT();
 
 String SITE = "";
 
+int VEL_THETA = 50;
+
+bool block_back = false;
+bool block_front = false;
+bool block_right = false;
+bool block_left = false;
+
 void setup() {
+  //upload_OTA("Oi_A822","MchCM3TM");
   leds("fade", 50);
   Serial.begin(115200);
 
@@ -109,6 +117,16 @@ void setup() {
     }
     Serial.print("IP address: "); Serial.println(WiFi.localIP());
     Actual_IP = WiFi.localIP();
+
+   //Piscadinha pra quando o server estiver ON 
+  leds("static", 0);
+  delay(200);
+  leds("static", 50);
+  delay(200);
+  leds("static", 0);
+  delay(200);
+  leds("static", 50);
+
   #endif
 
     // if you don't have #define USE_INTRANET, here's where you will creat and access point
@@ -160,11 +178,10 @@ void loop() {
   Serial.print("EB" + String(encoderB()) + " ");
   Serial.println();
 */
-  //frente(50);
-  //stop();
-   
+
+
   /*
-  sensores.distanceRead();
+  //sensores.distanceRead();
   Serial.print(sensores.dist[0]);
   Serial.print(" ");
   Serial.print(sensores.dist[1]);
@@ -173,9 +190,17 @@ void loop() {
   Serial.println(" ");
   */ 
 
-  
-
-  
+  if(getValueUltrassonic(0) < 20){
+    block_front = true;
+    block_left = true;
+    block_right = true;
+    stop(); // o stop ta bloqueando o back
+    //mas esse stop já resolveu o problema de ir direto ao manter pressionado
+  }else{
+    block_front = false;
+    block_left = false;
+    block_right = false;
+  }
 
   leds("static", 50);
 
@@ -199,33 +224,53 @@ void PROCESS_BUTTON_STOP(){
 }
 
 void PROCESS_BUTTON_BACK(){
-  digitalWrite(2, 1);
-  //Serial.println("BACK");
-  server.send(200, "text/plain", "");
-  tras(50);
+  if(block_back){
+    stop();
+  }else{
+    digitalWrite(2, 1);
+    //Serial.println("BACK");
+    server.send(200, "text/plain", "");
+    tras(VEL_THETA);
+  }
+
+  
 }
 
 void PROCESS_BUTTON_FRONT(){
-  digitalWrite(2, 1);
-  //Serial.println("FRONT");
-  server.send(200, "text/plain", "");
-  frente(50);
+  if(block_front){
+    stop();
+  }else{
+    digitalWrite(2, 1);
+    //Serial.println("FRONT");
+    server.send(200, "text/plain", "");
+    frente(VEL_THETA);
+  }
+
+
 
 }
 
 void PROCESS_BUTTON_RIGHT(){
-  digitalWrite(2, 1);
-  //Serial.println("RIGHT");
-  server.send(200, "text/plain", "");
-  direita(50);
-
+  if(block_right){
+    stop();
+  }else{
+    digitalWrite(2, 1);
+    //Serial.println("RIGHT");
+    server.send(200, "text/plain", "");
+    direita(VEL_THETA);
+  }
 }
 
 void PROCESS_BUTTON_LEFT(){
-  digitalWrite(2, 1);
-  //Serial.println("LEFT");
-  server.send(200, "text/plain", "");
-  esquerda(50);
+  if(block_left){
+    stop();
+  }else{
+    digitalWrite(2, 1);
+    //Serial.println("LEFT");
+    server.send(200, "text/plain", "");
+    esquerda(VEL_THETA);
+  }
+
 
 }
 
@@ -247,8 +292,22 @@ void SendXML() {
   else {
     strcat(XML, "<LED>0</LED>\n");
   }
+  
+  //Envia leitura do ULTRASSÔNICO via XML para a WEB
   sprintf(buf, "<U>%d</U>\n", getValueUltrassonic(0));
   strcat(XML, buf);
+
+  //Envia leituras dos VL's via XML para a WEB
+  //Não funciona devido aos VL's atrasarem o código, e tudo para de funcionar
+  sprintf(buf, "<VL1>%d</VL1>\n", 0);
+  strcat(XML, buf);
+
+  sprintf(buf, "<VL2>%d</VL2>\n", 0);
+  strcat(XML, buf);
+
+  sprintf(buf, "<VL3>%d</VL3>\n", 0);
+  strcat(XML, buf);
+
   strcat(XML, "</Data>\n");
   Serial.println(XML);
 
